@@ -1,36 +1,57 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
-import Home from './components/pages/Home';
-import User from './components/users/User';
+import React from "react";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+// import Home from "./components/pages/Home";
+// import User from "./components/users/User";
 
-import Alert from './components/layout/Alert';
-import About from './components/pages/About';
-import NotFound from './components/pages/NotFound';
+import Alert from "./components/layout/Alert";
+// import About from "./components/pages/About";
+// import NotFound from "./components/pages/NotFound";
+// import { createBrowserRouter, RouterProvider } from "react-router";
 
-import AlertState from './context/alert/AlertState';
-import GithubState from './context/github/GithubState';
+import AlertState from "./context/alert/AlertState";
+import GithubState from "./context/github/GithubState";
 
-import './App.css';
+import "./App.css";
+
+// let router = createBrowserRouter([
+//   {
+//     path: "/",
+//     Component: Home,
+//     errorElement: <NotFound />,
+//     children: [
+//       {
+//         path: "/about",
+//         Component: About,
+//       },
+//       {
+//         path: "/user/:login",
+//         Component: User,
+//       },
+//     ],
+//   },
+// ]);
 
 const App = () => {
   return (
     <GithubState>
       <AlertState>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <div className="container">
-              <Alert />
-              <Switch>
+        {/* <Router> */}
+
+        <div className="App">
+          <Navbar />
+          <div className="container">
+            <Alert />
+            {/* <RouterProvider router={router} /> */}
+            {/* <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/about" component={About} />
                 <Route exact path="/user/:login" component={User} />
                 <Route component={NotFound} />
-              </Switch>
-            </div>
+              </Switch> */}
           </div>
-        </Router>
+        </div>
+        {/* </Router> */}
       </AlertState>
     </GithubState>
   );
