@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Navbar = ({ icon = "fab fa-github", title = "Github Finderssss" }) => (
+const Navbar = ({ icon = "fab fa-github", title = "Github Finder" }) => (
   <nav className="navbar bg-primary">
     <h1>
       <i className={icon} /> {title}
