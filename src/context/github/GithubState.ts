@@ -1,18 +1,18 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import GithubContext from './githubContext';
-import GithubReducer from './githubReducer';
+import { useReducer } from "react";
+import axios from "axios";
+import GithubContext from "./githubContext";
+import GithubReducer from "./githubReducer";
 import {
   SEARCH_USERS,
   SET_LOADING,
   CLEAR_USERS,
   GET_USER,
   GET_REPOS,
-} from '../types';
+} from "../types";
 
 let githubClientId;
 let githubClientSecret;
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
   githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
 } else {
@@ -20,7 +20,14 @@ if (process.env.NODE_ENV !== 'production') {
   githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 }
 
-const GithubState = (props) => {
+interface ContextProps {
+  users: [];
+  user: {};
+  repos: [];
+  loading: boolean;
+}
+
+const GithubState = (props: { props: ContextProps }) => {
   const initialState = {
     users: [],
     user: {},
@@ -48,7 +55,7 @@ const GithubState = (props) => {
   };
 
   // Get User
-  const getUser = async (username) => {
+  const getUser = async (username: string) => {
     setLoading();
 
     const res = await axios.get(

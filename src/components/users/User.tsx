@@ -1,18 +1,21 @@
-import React, { Fragment, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import GithubContext from '../../context/github/githubContext';
-import Spinner from '../layout/Spinner';
-import Repos from '../repos/Repos';
+import React, { Fragment, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import GithubContext from "../../context/github/githubContext";
+import Spinner from "../layout/Spinner";
+import Repos from "../repos/Repos";
 
-const User = ({ match }) => {
+// const User = ({ match }) => {
+const User = () => {
   const githubContext = useContext(GithubContext);
   const { getUser, loading, user, repos, getUserRepos } = githubContext;
 
-  useEffect(() => {
-    getUser(match.params.login);
-    getUserRepos(match.params.login);
-    // eslint-disable-next-line
-  }, []);
+  // console.log(match);
+
+  // useEffect(() => {
+  //   getUser(match.params.login);
+  //   getUserRepos(match.params.login);
+  //   // eslint-disable-next-line
+  // }, []);
 
   const {
     name,
@@ -37,7 +40,7 @@ const User = ({ match }) => {
       <Link to="/" className="btn btn-light">
         Back to Search
       </Link>
-      Hireable:{' '}
+      Hireable:{" "}
       {hireable ? (
         <i className="fas fa-check text-success" />
       ) : (
@@ -49,7 +52,7 @@ const User = ({ match }) => {
             src={avatar_url}
             className="round-img"
             alt=""
-            style={{ width: '150px' }}
+            style={{ width: "150px" }}
           />
           <h1>{name}</h1>
           <p>Location: {location}</p>
