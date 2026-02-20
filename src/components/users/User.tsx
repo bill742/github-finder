@@ -1,18 +1,33 @@
-import React, { Fragment, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
-import GithubContext from '../../context/github/githubContext'
-import Spinner from '../layout/Spinner'
-import Repos from '../repos/Repos'
+import React, { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useGithubContext } from '../../context/github/githubContext';
+import Spinner from '../layout/Spinner';
+import Repos from '../repos/Repos';
 
-const User = ({ match }) => {
-  const githubContext = useContext(GithubContext)
-  const { getUser, loading, user, repos, getUserRepos } = githubContext
+const User: React.FC = () => {
+  const { getUser, loading, user, repos, getUserRepos } = useGithubContext();
+
+  const { login } = useParams<{ login: string }>();
 
   useEffect(() => {
-    getUser(match.params.login)
-    getUserRepos(match.params.login)
-    // eslint-disable-next-line
-  }, [])
+    if (login) {
+      getUser(login);
+      getUserRepos(login);
+    }
+  }, [login, getUser, getUserRepos]);
+
+  if (loading) return <Spinner />;
+
+  if (!user) {
+    return (
+      <div>
+        <Link to="/" className="btn btn-light">
+          Back to Search
+        </Link>
+        <p>No user data available.</p>
+      </div>
+    );
+  }
 
   const {
     name,
@@ -21,19 +36,17 @@ const User = ({ match }) => {
     bio,
     blog,
     company,
-    login,
+    login: userLogin,
     html_url,
     followers,
     following,
     public_gists,
     public_repos,
     hireable,
-  } = user
-
-  if (loading) return <Spinner />
+  } = user;
 
   return (
-    <Fragment>
+    <>
       <Link to="/" className="btn btn-light">
         Back to Search
       </Link>
@@ -45,40 +58,41 @@ const User = ({ match }) => {
       )}
       <div className="card grid-2">
         <div className="all-center">
-          <img src={avatar_url} className="round-img" alt="" style={{ width: '150px' }} />
+          <img
+            src={avatar_url}
+            className="round-img"
+            alt=""
+            style={{ width: '150px' }}
+          />
           <h1>{name}</h1>
           <p>Location: {location}</p>
         </div>
         <div>
           {bio && (
-            <Fragment>
+            <>
               <h3>Bio</h3>
               <p>{bio}</p>
-            </Fragment>
+            </>
           )}
           <a href={html_url} className="btn btn-dark my-1">
             Visit Github Profile
           </a>
           <ul>
             <li>
-              {login && (
-                <Fragment>
-                  <strong>Username: </strong> {login}
-                </Fragment>
-              )}
+              <strong>Username: </strong> {userLogin}
             </li>
             <li>
               {company && (
-                <Fragment>
+                <>
                   <strong>Company: </strong> {company}
-                </Fragment>
+                </>
               )}
             </li>
             <li>
               {blog && (
-                <Fragment>
+                <>
                   <strong>Website: </strong> {blog}
-                </Fragment>
+                </>
               )}
             </li>
           </ul>
@@ -91,8 +105,8 @@ const User = ({ match }) => {
         <div className="badge badge-dark">Public Gists: {public_gists}</div>
       </div>
       <Repos repos={repos} />
-    </Fragment>
-  )
-}
+    </>
+  );
+};
 
-export default User
+export default User;

@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-const Navbar = ({ icon = 'fab fa-github', title = 'Github Finder' }) => (
+const Navbar = () => (
   <nav className="navbar bg-primary">
     <h1>
-      <i className={icon} /> {title}
+      <i className="fab fa-github" /> Github Finder
     </h1>
     <ul>
       <li>
@@ -14,6 +14,6 @@ const Navbar = ({ icon = 'fab fa-github', title = 'Github Finder' }) => (
       </li>
     </ul>
   </nav>
-)
+);
 
-export default Navbar
+export default Navbar;
