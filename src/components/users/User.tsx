@@ -7,8 +7,6 @@ import Repos from '../repos/Repos';
 const User: React.FC = () => {
   const { getUser, loading, user, repos, getUserRepos } = useGithubContext();
 
-  console.log(`User: ${user}`);
-
   const { login } = useParams<{ login: string }>();
 
   useEffect(() => {
@@ -16,7 +14,7 @@ const User: React.FC = () => {
       getUser(login);
       getUserRepos(login);
     }
-  }, [login]);
+  }, [login, getUser, getUserRepos]);
 
   if (loading) return <Spinner />;
 
@@ -38,7 +36,7 @@ const User: React.FC = () => {
     bio,
     blog,
     company,
-    login: username,
+    login: userLogin,
     html_url,
     followers,
     following,
@@ -81,11 +79,7 @@ const User: React.FC = () => {
           </a>
           <ul>
             <li>
-              {login && (
-                <>
-                  <strong>Username: </strong> {login}
-                </>
-              )}
+              <strong>Username: </strong> {userLogin}
             </li>
             <li>
               {company && (

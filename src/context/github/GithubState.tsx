@@ -1,4 +1,4 @@
-import { useReducer, ReactNode } from 'react';
+import { useReducer, useCallback, ReactNode } from 'react';
 import axios from 'axios';
 import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
@@ -52,12 +52,9 @@ const GithubState: React.FC<GithubStateProps> = ({ children }) => {
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
-  // Set Loading
-  const setLoading = (): void => dispatch({ type: SET_LOADING });
-
   // Search Users
-  const searchUsers = async (text: string): Promise<void> => {
-    setLoading();
+  const searchUsers = useCallback(async (text: string): Promise<void> => {
+    dispatch({ type: SET_LOADING });
 
     const res = await axios.get(
       `https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
@@ -67,32 +64,34 @@ const GithubState: React.FC<GithubStateProps> = ({ children }) => {
       type: SEARCH_USERS,
       payload: res.data.items,
     });
-  };
+  }, []);
 
   // Get User
-  const getUser = async (username: string): Promise<void> => {
-    setLoading();
+  const getUser = useCallback(async (username: string): Promise<void> => {
+    dispatch({ type: SET_LOADING });
 
     const res = await axios.get(
       `https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`,
     );
 
     dispatch({ type: GET_USER, payload: res.data });
-  };
+  }, []);
 
   // Get User Repos
-  const getUserRepos = async (username: string) => {
-    setLoading();
+  const getUserRepos = useCallback(async (username: string): Promise<void> => {
+    dispatch({ type: SET_LOADING });
 
     const res = await axios.get(
       `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
     );
 
     dispatch({ type: GET_REPOS, payload: res.data });
-  };
+  }, []);
 
   // Clear Users
-  const clearUsers = () => dispatch({ type: CLEAR_USERS });
+  const clearUsers = useCallback((): void => {
+    dispatch({ type: CLEAR_USERS });
+  }, []);
 
   // Create the context value matching GithubContextType
   const contextValue: GithubContextType = {

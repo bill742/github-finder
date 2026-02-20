@@ -11,8 +11,6 @@ const userStyle = {
 const Users = () => {
   const { loading, users } = useGithubContext();
 
-  console.log(users);
-
   if (loading) {
     return <Spinner />;
   } else {

@@ -1,8 +1,6 @@
 import { RepoItemProps } from '../../types/repo';
 
-const RepoItem: React.FC<RepoItemProps> = ({
-  repo: { name, html_url, description },
-}) => {
+const RepoItem: React.FC<RepoItemProps> = ({ repo: { name, html_url } }) => {
   return (
     <div className="card">
       <h3>

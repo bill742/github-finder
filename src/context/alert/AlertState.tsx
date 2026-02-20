@@ -29,12 +29,7 @@ const AlertState: React.FC<AlertStateProps> = ({ children }) => {
   };
 
   return (
-    <AlertContext.Provider
-      value={{
-        alert: state,
-        setAlert,
-      }}
-    >
+    <AlertContext.Provider value={contextValue}>
       {children}
     </AlertContext.Provider>
   );
