@@ -1,21 +1,35 @@
-import React, { Fragment, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import GithubContext from "../../context/github/githubContext";
-import Spinner from "../layout/Spinner";
-import Repos from "../repos/Repos";
+import React, { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useGithubContext } from '../../context/github/githubContext';
+import Spinner from '../layout/Spinner';
+import Repos from '../repos/Repos';
 
-// const User = ({ match }) => {
-const User = () => {
-  const githubContext = useContext(GithubContext);
-  const { getUser, loading, user, repos, getUserRepos } = githubContext;
+const User: React.FC = () => {
+  const { getUser, loading, user, repos, getUserRepos } = useGithubContext();
 
-  // console.log(match);
+  console.log(`User: ${user}`);
 
-  // useEffect(() => {
-  //   getUser(match.params.login);
-  //   getUserRepos(match.params.login);
-  //   // eslint-disable-next-line
-  // }, []);
+  const { login } = useParams<{ login: string }>();
+
+  useEffect(() => {
+    if (login) {
+      getUser(login);
+      getUserRepos(login);
+    }
+  }, [login]);
+
+  if (loading) return <Spinner />;
+
+  if (!user) {
+    return (
+      <div>
+        <Link to="/" className="btn btn-light">
+          Back to Search
+        </Link>
+        <p>No user data available.</p>
+      </div>
+    );
+  }
 
   const {
     name,
@@ -24,7 +38,7 @@ const User = () => {
     bio,
     blog,
     company,
-    login,
+    login: username,
     html_url,
     followers,
     following,
@@ -33,14 +47,12 @@ const User = () => {
     hireable,
   } = user;
 
-  if (loading) return <Spinner />;
-
   return (
-    <Fragment>
+    <>
       <Link to="/" className="btn btn-light">
         Back to Search
       </Link>
-      Hireable:{" "}
+      Hireable:{' '}
       {hireable ? (
         <i className="fas fa-check text-success" />
       ) : (
@@ -52,17 +64,17 @@ const User = () => {
             src={avatar_url}
             className="round-img"
             alt=""
-            style={{ width: "150px" }}
+            style={{ width: '150px' }}
           />
           <h1>{name}</h1>
           <p>Location: {location}</p>
         </div>
         <div>
           {bio && (
-            <Fragment>
+            <>
               <h3>Bio</h3>
               <p>{bio}</p>
-            </Fragment>
+            </>
           )}
           <a href={html_url} className="btn btn-dark my-1">
             Visit Github Profile
@@ -70,23 +82,23 @@ const User = () => {
           <ul>
             <li>
               {login && (
-                <Fragment>
+                <>
                   <strong>Username: </strong> {login}
-                </Fragment>
+                </>
               )}
             </li>
             <li>
               {company && (
-                <Fragment>
+                <>
                   <strong>Company: </strong> {company}
-                </Fragment>
+                </>
               )}
             </li>
             <li>
               {blog && (
-                <Fragment>
+                <>
                   <strong>Website: </strong> {blog}
-                </Fragment>
+                </>
               )}
             </li>
           </ul>
@@ -99,7 +111,7 @@ const User = () => {
         <div className="badge badge-dark">Public Gists: {public_gists}</div>
       </div>
       <Repos repos={repos} />
-    </Fragment>
+    </>
   );
 };
 
