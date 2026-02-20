@@ -8,6 +8,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@components": path.resolve(__dirname, "./src/components"),
       "@context": path.resolve(__dirname, "./src/context"),
+      "@types": path.resolve(__dirname, "./src/types"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
+      "@api": path.resolve(__dirname, "./src/api"),
     },
   },
   server: {
