@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { User } from '../types/user';
+
 import { Repo } from '../types/repo';
+import { User } from '../types/user';
 
 const getCredentialParams = (): Record<string, string> => {
   const isProd = import.meta.env.MODE === 'production';

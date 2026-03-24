@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ChangeEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 interface SearchProps {
   onSearch: (text: string) => void;

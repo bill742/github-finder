@@ -1,11 +1,11 @@
-import UserItem from './UserItem';
-import Spinner from '../layout/Spinner';
 import { useSearchUsers } from '../../hooks/useSearchUsers';
+import Spinner from '../layout/Spinner';
+import UserItem from './UserItem';
 
 const userStyle = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
   gridGap: '1rem',
+  gridTemplateColumns: 'repeat(3, 1fr)',
 };
 
 interface UsersProps {
