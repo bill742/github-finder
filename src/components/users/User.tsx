@@ -1,24 +1,15 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { fetchUser, fetchUserRepos } from '../../api/github';
+import { useUser } from '../../hooks/useUser';
+import { useUserRepos } from '../../hooks/useUserRepos';
 import Spinner from '../layout/Spinner';
 import Repos from '../repos/Repos';
 
 const User: React.FC = () => {
   const { login } = useParams<{ login: string }>();
 
-  const { data: user, isLoading: userLoading, isError } = useQuery({
-    queryKey: ['user', login],
-    queryFn: () => fetchUser(login!),
-    enabled: !!login,
-  });
-
-  const { data: repos = [], isLoading: reposLoading } = useQuery({
-    queryKey: ['repos', login],
-    queryFn: () => fetchUserRepos(login!),
-    enabled: !!login,
-  });
+  const { data: user, isLoading: userLoading, isError } = useUser(login);
+  const { data: repos = [], isLoading: reposLoading } = useUserRepos(login);
 
   const loading = userLoading || reposLoading;
 

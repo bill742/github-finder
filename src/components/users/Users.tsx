@@ -1,7 +1,6 @@
 import UserItem from './UserItem';
 import Spinner from '../layout/Spinner';
-import { useQuery } from '@tanstack/react-query';
-import { searchUsers } from '../../api/github';
+import { useSearchUsers } from '../../hooks/useSearchUsers';
 
 const userStyle = {
   display: 'grid',
@@ -15,15 +14,7 @@ interface UsersProps {
 }
 
 const Users: React.FC<UsersProps> = ({ text, onClear }) => {
-  const {
-    data: users = [],
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['searchUsers', text],
-    queryFn: () => searchUsers(text),
-    enabled: !!text,
-  });
+  const { data: users = [], isLoading, isError } = useSearchUsers(text);
 
   if (isLoading) return <Spinner />;
   if (isError)
