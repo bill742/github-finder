@@ -1,14 +1,18 @@
 {
   "name": "github-finder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "@tanstack/react-query": "^5.90.21",
+    "@tanstack/react-query-devtools": "^5.95.2",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "axios": "^1.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.9.3",
+    "tailwindcss": "^4.2.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
