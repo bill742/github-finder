@@ -1,12 +1,17 @@
-import React, { Fragment } from 'react'
-import Search from '../users/Search'
-import Users from '../users/Users'
+import React, { Fragment, useState } from 'react';
 
-const Home = () => (
-  <Fragment>
-    <Search />
-    <Users />
-  </Fragment>
-)
+import Search from '../users/Search';
+import Users from '../users/Users';
 
-export default Home
+const Home = () => {
+  const [text, setText] = useState('');
+
+  return (
+    <Fragment>
+      <Search onSearch={setText} />
+      <Users text={text} onClear={() => setText('')} />
+    </Fragment>
+  );
+};
+
+export default Home;

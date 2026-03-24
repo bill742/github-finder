@@ -1,39 +1,44 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
-import Home from "./components/pages/Home";
-import User from "./components/users/User";
+import './App.css';
 
-import Alert from "./components/layout/Alert";
-import About from "./components/pages/About";
-import NotFound from "./components/pages/NotFound";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import AlertState from "./context/alert/AlertState";
-import GithubState from "./context/github/GithubState";
+import Navbar from './components/layout/Navbar';
+import About from './components/pages/About';
+import Home from './components/pages/Home';
+import NotFound from './components/pages/NotFound';
+import User from './components/users/User';
 
-import "./App.css";
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // 5 minutes
+      retry: 1,
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 const App = () => {
   return (
-    <GithubState>
-      <AlertState>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <div className="container">
-              <Alert />
-
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/user/:login" element={<User />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/user/:login" element={<User />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </div>
-        </Router>
-      </AlertState>
-    </GithubState>
+        </div>
+      </Router>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
