@@ -31,8 +31,8 @@ export const fetchUser = async (username: string): Promise<User> => {
 
 export const fetchUserRepos = async (username: string): Promise<Repo[]> => {
   const params = new URLSearchParams({
-    per_page: '5',
-    sort: 'created:asc',
+    per_page: '10',
+    sort: 'updated:asc',
     ...getCredentialParams(),
   });
   const { data } = await axios.get<Repo[]>(
@@ -41,13 +41,25 @@ export const fetchUserRepos = async (username: string): Promise<Repo[]> => {
   return data;
 };
 
-export const searchUsers = async (text: string): Promise<User[]> => {
+const SEARCH_PER_PAGE = 28;
+// GitHub caps search results at 1000
+const GITHUB_SEARCH_MAX = 1000;
+
+export const searchUsers = async (
+  text: string,
+  page: number = 1,
+): Promise<{ items: User[]; totalCount: number; totalPages: number }> => {
   const params = new URLSearchParams({
+    page: String(page),
+    per_page: String(SEARCH_PER_PAGE),
     q: text,
     ...getCredentialParams(),
   });
-  const { data } = await axios.get<{ items: User[] }>(
+  const { data } = await axios.get<{ items: User[]; total_count: number }>(
     `${GITHUB_API}/search/users?${params}`,
   );
-  return data.items;
+  const totalPages = Math.ceil(
+    Math.min(data.total_count, GITHUB_SEARCH_MAX) / SEARCH_PER_PAGE,
+  );
+  return { items: data.items, totalCount: data.total_count, totalPages };
 };
