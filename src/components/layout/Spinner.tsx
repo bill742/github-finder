@@ -1,15 +1,10 @@
-import React, { Fragment } from 'react';
-
-import spinner from './spinner.gif';
+import { Loader2 } from 'lucide-react';
+import React from 'react';
 
 const Spinner = () => (
-  <Fragment>
-    <img
-      src={spinner}
-      alt="Loading..."
-      style={{ display: 'block', margin: 'auto', width: '200px' }}
-    />
-  </Fragment>
+  <div className="flex min-h-48 items-center justify-center">
+    <Loader2 className="h-10 w-10 animate-spin text-white" />
+  </div>
 );
 
 export default Spinner;

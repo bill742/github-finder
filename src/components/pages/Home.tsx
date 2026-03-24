@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import Search from '../users/Search';
 import Users from '../users/Users';
@@ -7,10 +7,12 @@ const Home = () => {
   const [text, setText] = useState('');
 
   return (
-    <Fragment>
-      <Search onSearch={setText} />
-      <Users text={text} onClear={() => setText('')} />
-    </Fragment>
+    <>
+      <div className="bg-secondary-background">
+        <Search onSearch={setText} />
+      </div>
+      <Users onClear={() => setText('')} text={text} />
+    </>
   );
 };
 

@@ -1,10 +1,17 @@
 import React from 'react';
 
-import { ReposProps } from '../../types/repo';
+import { ReposProps } from '@/types/repo';
+
 import RepoItem from './RepoItem';
 
 const Repos: React.FC<ReposProps> = ({ repos }) => {
-  return repos.map((repo) => <RepoItem repo={repo} key={repo.id.toString()} />);
+  return (
+    <div className="space-y-2">
+      {repos.map((repo) => (
+        <RepoItem key={repo.id.toString()} repo={repo} />
+      ))}
+    </div>
+  );
 };
 
 export default Repos;
