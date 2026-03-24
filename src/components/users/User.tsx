@@ -1,30 +1,36 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useGithubContext } from '../../context/github/githubContext';
+import { useQuery } from '@tanstack/react-query';
+import { fetchUser, fetchUserRepos } from '../../api/github';
 import Spinner from '../layout/Spinner';
 import Repos from '../repos/Repos';
 
 const User: React.FC = () => {
-  const { getUser, loading, user, repos, getUserRepos } = useGithubContext();
-
   const { login } = useParams<{ login: string }>();
 
-  useEffect(() => {
-    if (login) {
-      getUser(login);
-      getUserRepos(login);
-    }
-  }, [login, getUser, getUserRepos]);
+  const { data: user, isLoading: userLoading, isError } = useQuery({
+    queryKey: ['user', login],
+    queryFn: () => fetchUser(login!),
+    enabled: !!login,
+  });
+
+  const { data: repos = [], isLoading: reposLoading } = useQuery({
+    queryKey: ['repos', login],
+    queryFn: () => fetchUserRepos(login!),
+    enabled: !!login,
+  });
+
+  const loading = userLoading || reposLoading;
 
   if (loading) return <Spinner />;
 
-  if (!user) {
+  if (isError || !user) {
     return (
       <div>
         <Link to="/" className="btn btn-light">
           Back to Search
         </Link>
-        <p>No user data available.</p>
+        <p>Could not load user profile.</p>
       </div>
     );
   }

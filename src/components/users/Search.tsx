@@ -1,21 +1,16 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
-import { useGithubContext } from '../../context/github/githubContext';
-import { useAlertContext } from '../../context/alert/alertContext';
 
-const Search: React.FC = () => {
-  const { setAlert } = useAlertContext();
-  const { searchUsers, clearUsers, users } = useGithubContext();
+interface SearchProps {
+  onSearch: (text: string) => void;
+}
 
+const Search: React.FC<SearchProps> = ({ onSearch }) => {
   const [text, setText] = useState('');
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (text === '') {
-      setAlert('Please enter something', 'light');
-    } else {
-      searchUsers(text);
-      setText('');
-    }
+    onSearch(text);
+    setText('');
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -31,6 +26,7 @@ const Search: React.FC = () => {
           placeholder="Search Users"
           value={text}
           onChange={onChange}
+          required
         />
         <input
           type="submit"
@@ -38,16 +34,6 @@ const Search: React.FC = () => {
           className="btn btn-dark btn-block"
         />
       </form>
-
-      {users.length > 0 && (
-        <button
-          className="btn btn-light btn-block"
-          onClick={clearUsers}
-          type="button"
-        >
-          Clear
-        </button>
-      )}
     </div>
   );
 };
