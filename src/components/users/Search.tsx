@@ -17,13 +17,16 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     setText('');
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => setText(e.target.value);
+  const onChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setText(e.target.value);
 
   return (
     <div className="mx-auto mb-10 max-w-2xl px-4 pt-16 text-center">
       <div className="mb-3 flex items-center justify-center gap-2">
         <div className="h-px w-12 bg-white/40" />
-        <span className="text-xs font-semibold uppercase tracking-widest text-white/70">Explore</span>
+        <span className="text-xs font-semibold uppercase tracking-widest text-white/70">
+          Explore
+        </span>
         <div className="h-px w-12 bg-white/40" />
       </div>
       <h1 className="mb-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">

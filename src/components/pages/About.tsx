@@ -1,5 +1,5 @@
 import { Search, Users } from 'lucide-react';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { Card, CardContent } from '@/components/ui/card';
 

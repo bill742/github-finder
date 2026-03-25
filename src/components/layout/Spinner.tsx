@@ -1,5 +1,4 @@
 import { Loader2 } from 'lucide-react';
-import React from 'react';
 
 const Spinner = () => (
   <div className="flex min-h-48 items-center justify-center">
