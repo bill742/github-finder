@@ -12,5 +12,8 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "biome.enabled": false
+  "biome.enabled": false,
+  "cSpell.words": ["Mgmt", "testuser"],
+  "vitest.enable": true,
+  "vitest.commandLine": "vitest"
 }
