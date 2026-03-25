@@ -25,16 +25,16 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <div className="App">
+        <div className="min-h-screen bg-background">
           <Navbar />
-          <div className="container">
+          <main>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/user/:login" element={<User />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </div>
+          </main>
         </div>
       </Router>
       <ReactQueryDevtools initialIsOpen={false} />

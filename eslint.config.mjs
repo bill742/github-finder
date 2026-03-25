@@ -15,6 +15,7 @@ export default [
       '**/build/**',
       '**/.vite/**',
       '**/coverage/**',
+      'src/components/ui/**',
     ],
   },
   // Main config for TypeScript files

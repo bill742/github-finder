@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
@@ -5,7 +6,7 @@ export default defineConfig({
   // Environment variable prefix (CRA uses REACT_APP_, Vite uses VITE_)
   envPrefix: 'VITE_',
 
-  plugins: [react()],
+  plugins: [tailwindcss(), react()],
 
   resolve: {
     alias: {
