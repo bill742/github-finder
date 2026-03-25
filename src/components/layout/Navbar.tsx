@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 
 import GithubIcon from '../gitHubIcon';
+import NavBarItem from './NavBarItem';
+
+const navItems = [
+  { id: 1, name: 'Home', path: '/' },
+  { id: 2, name: 'About', path: '/about' },
+];
 
 const Navbar = () => (
   <nav className="sticky top-0 z-50 border-b border-white/20 bg-background">
@@ -15,22 +21,9 @@ const Navbar = () => (
         <span className="text-lg font-bold tracking-tight">GitHub Finder</span>
       </Link>
       <ul className="flex items-center gap-1">
-        <li>
-          <Link
-            to="/"
-            className="rounded-md px-4 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/15 hover:text-white"
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/about"
-            className="rounded-md px-4 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/15 hover:text-white"
-          >
-            About
-          </Link>
-        </li>
+        {navItems.map((item) => (
+          <NavBarItem key={item.id} name={item.name} path={item.path} />
+        ))}
       </ul>
     </div>
   </nav>
