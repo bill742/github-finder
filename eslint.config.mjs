@@ -5,6 +5,7 @@ import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import sortKeysFix from 'eslint-plugin-sort-keys-fix';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import react from 'eslint-plugin-react';
 
 export default [
   // Global ignores
@@ -33,10 +34,12 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
+        jsxPragma: null,
       },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
+      react: react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
@@ -45,35 +48,10 @@ export default [
     rules: {
       // TypeScript recommended rules
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-        },
-      ],
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      'simple-import-sort/imports': [
-        'warn',
-        {
-          groups: [['^\\u0000'], ['^@?\\w'], ['^[^.]'], ['^\\.'], ['^src/.*']],
-        },
-      ],
-      'sort-keys-fix/sort-keys-fix': [
-        'warn',
-        'asc',
-        {
-          caseSensitive: true,
-          natural: false,
-        },
-      ],
-      'no-unused-vars': [
-        'warn',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-        },
-      ],
+
+      // React rules
+      'react/react-in-jsx-scope': 'off',
 
       // React Hooks rules
       'react-hooks/rules-of-hooks': 'error',
@@ -88,6 +66,28 @@ export default [
       // General rules
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'warn',
+      'simple-import-sort/imports': [
+        'warn',
+        {
+          groups: [['^\\u0000'], ['^@?\\w'], ['^[^.]'], ['^\\.'], ['^src/.*']],
+        },
+      ],
+      'sort-keys-fix/sort-keys-fix': [
+        'warn',
+        'asc',
+        {
+          caseSensitive: true,
+          natural: false,
+        },
+      ],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
     },
   },
 ];
