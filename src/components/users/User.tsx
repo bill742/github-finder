@@ -31,8 +31,6 @@ const User: React.FC = () => {
 
   if (loading) return <Spinner />;
 
-  console.log(repos);
-
   if (isError || !user) {
     return (
       <div className="py-12 text-center">
