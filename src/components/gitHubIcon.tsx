@@ -1,4 +1,10 @@
-const GithubIcon = ({ className }: { className?: string }) => (
+import { FC } from 'react';
+
+interface GithubIconProps {
+  className?: string;
+}
+
+const GithubIcon: FC<GithubIconProps> = ({ className }) => (
   <svg
     className={className}
     viewBox="0 0 24 24"

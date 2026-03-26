@@ -1,5 +1,4 @@
 import { Search, Users } from 'lucide-react';
-import { Fragment } from 'react';
 
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -7,7 +6,7 @@ import GithubIcon from '../gitHubIcon';
 
 const About = () => {
   return (
-    <Fragment>
+    <>
       <div className="mx-auto max-w-2xl px-4 py-16">
         <div className="mb-8 text-center">
           <div className="mb-4 flex items-center justify-center">
@@ -33,9 +32,9 @@ const About = () => {
                 <Search className="h-5 w-5 text-accent" />
               </div>
               <div>
-                <h3 className="mb-1 font-semibold text-card-foreground">
+                <h2 className="mb-1 font-semibold text-card-foreground">
                   User Search
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   Search for any GitHub user by username and explore their
                   public profile.
@@ -49,9 +48,9 @@ const About = () => {
                 <Users className="h-5 w-5 text-accent" />
               </div>
               <div>
-                <h3 className="mb-1 font-semibold text-card-foreground">
+                <h2 className="mb-1 font-semibold text-card-foreground">
                   Profile Details
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   View followers, repositories, and other public information
                   about any GitHub user.
@@ -61,7 +60,7 @@ const About = () => {
           </Card>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

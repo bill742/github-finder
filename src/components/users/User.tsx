@@ -9,7 +9,7 @@ import {
   Users as UsersIcon,
   XCircle,
 } from 'lucide-react';
-import React from 'react';
+import { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { Badge } from '@/components/ui/badge';
@@ -21,7 +21,7 @@ import { useUserRepos } from '@/hooks/useUserRepos';
 import Spinner from '../layout/Spinner';
 import Repos from '../repos/Repos';
 
-const User: React.FC = () => {
+const User: FC = () => {
   const { login } = useParams<{ login: string }>();
 
   const { data: user, isError, isLoading: userLoading } = useUser(login);
@@ -148,7 +148,7 @@ const User: React.FC = () => {
               <Button
                 asChild
                 size="sm"
-                className="gap-2 bg-primary text-white hover:bg-primary/80"
+                className="gap-2 bg-primary text-secondary hover:bg-primary/80"
               >
                 <a href={html_url} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-3.5 w-3.5" />

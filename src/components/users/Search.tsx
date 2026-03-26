@@ -1,5 +1,5 @@
 import { Search as SearchIcon } from 'lucide-react';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,7 @@ interface SearchProps {
   onSearch: (text: string) => void;
 }
 
-const Search: React.FC<SearchProps> = ({ onSearch }) => {
+const Search: FC<SearchProps> = ({ onSearch }) => {
   const [text, setText] = useState('');
 
   const onSubmit = (e: FormEvent) => {
@@ -39,6 +39,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
         <Input
           type="text"
           name="text"
+          aria-label="GitHub username"
           placeholder="Search by username..."
           value={text}
           onChange={onChange}
@@ -48,7 +49,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
         <Button
           type="submit"
           size="lg"
-          className="gap-2 bg-primary text-white hover:bg-primary/90"
+          className="gap-2 bg-primary text-secondary hover:bg-primary/90"
         >
           <SearchIcon className="h-4 w-4" />
           Search

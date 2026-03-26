@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { ReposProps } from '@/types/repo';
 
 import RepoItem from './RepoItem';
 
-const Repos: React.FC<ReposProps> = ({ repos }) => {
+const Repos: FC<ReposProps> = ({ repos }) => {
   return (
     <div className="space-y-2">
       {repos.map((repo) => (

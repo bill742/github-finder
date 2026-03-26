@@ -1,6 +1,12 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const NavBarItem = ({ name, path }: { name: string; path: string }) => {
+interface NavBarItemProps {
+  name: string;
+  path: string;
+}
+
+const NavBarItem: FC<NavBarItemProps> = ({ name, path }) => {
   return (
     <li>
       <Link
