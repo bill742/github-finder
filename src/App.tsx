@@ -2,13 +2,17 @@ import './App.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/layout/Navbar';
-import About from './components/pages/About';
-import Home from './components/pages/Home';
-import NotFound from './components/pages/NotFound';
-import User from './components/users/User';
+import Spinner from './components/layout/Spinner';
+
+const About = lazy(() => import('./components/pages/About'));
+const Home = lazy(() => import('./components/pages/Home'));
+const NotFound = lazy(() => import('./components/pages/NotFound'));
+const User = lazy(() => import('./components/users/User'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,12 +31,16 @@ const App = () => {
         <div className="min-h-screen bg-background">
           <Navbar />
           <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/user/:login" element={<User />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <ErrorBoundary>
+              <Suspense fallback={<Spinner />}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/user/:login" element={<User />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
           </main>
         </div>
       </Router>
